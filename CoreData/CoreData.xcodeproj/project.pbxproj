@@ -611,7 +611,7 @@
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.6.0;
+				minimumVersion = 5.0.0;
 			};
 		};
 		5601E8F02F8554CA002A377F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
