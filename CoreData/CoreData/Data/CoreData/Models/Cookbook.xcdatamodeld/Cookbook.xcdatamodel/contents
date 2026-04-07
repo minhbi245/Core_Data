@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24512" systemVersion="25E246" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="NO" userDefinedModelVersionIdentifier="">
+
+    <!-- ==================== Category ==================== -->
+    <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
+        <attribute name="icon"   optional="YES" attributeType="String"/>
+        <attribute name="id"     optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name"   optional="YES" attributeType="String"/>
+        <!-- To-Many: một Category có nhiều Recipes. maxCount=0 = unlimited -->
+        <relationship name="recipes" optional="YES" maxCount="0" deletionRule="Nullify"
+                      destinationEntity="Recipe" inverseName="category" inverseEntity="Recipe"/>
+    </entity>
+
+    <!-- ==================== Ingredient ==================== -->
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
+        <attribute name="id"   optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <!-- To-Many: một Ingredient được dùng trong nhiều RecipeIngredient -->
+        <!-- Cascade: xóa Ingredient → xóa các RecipeIngredient liên quan -->
+        <relationship name="recipeIngredients" optional="YES" maxCount="0" deletionRule="Cascade"
+                      destinationEntity="RecipeIngredient" inverseName="ingredient" inverseEntity="RecipeIngredient"/>
+    </entity>
+
+    <!-- ==================== Recipe ==================== -->
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES" codeGenerationType="class">
+        <attribute name="cookTime"           optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt"          optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id"                 optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <!-- imageData: bật "Allows External Storage" trong Xcode inspector để lưu file system khi >1MB -->
+        <attribute name="imageData"          optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="isFavorite"         optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name"               optional="YES" attributeType="String"/>
+        <attribute name="prepTime"           optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rating"             optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="recipeDescription"  optional="YES" attributeType="String"/>
+        <attribute name="servings"           optional="YES" attributeType="Integer 16" defaultValueString="2" usesScalarValueType="YES"/>
+
+        <!-- To-One: Recipe thuộc về 1 Category (Nullify: xóa Category → recipe.category = nil) -->
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify"
+                      destinationEntity="Category" inverseName="recipes" inverseEntity="Category"/>
+
+        <!-- To-Many: Recipe có nhiều RecipeIngredient (Cascade: xóa Recipe → xóa luôn junction rows) -->
+        <relationship name="recipeIngredients" optional="YES" maxCount="0" deletionRule="Cascade"
+                      destinationEntity="RecipeIngredient" inverseName="recipe" inverseEntity="RecipeIngredient"/>
+
+        <!-- To-Many ORDERED: Recipe có nhiều Steps có thứ tự (Cascade: xóa Recipe → xóa luôn Steps) -->
+        <!-- ordered="YES" → Core Data dùng NSOrderedSet thay vì NSSet -->
+        <relationship name="steps" optional="YES" maxCount="0" ordered="YES" deletionRule="Cascade"
+                      destinationEntity="Step" inverseName="recipe" inverseEntity="Step"/>
+
+        <!-- To-Many: Recipe có nhiều Tags (Nullify: xóa Recipe → Tag vẫn còn) -->
+        <relationship name="tags" optional="YES" maxCount="0" deletionRule="Nullify"
+                      destinationEntity="Tag" inverseName="recipes" inverseEntity="Tag"/>
+    </entity>
+
+    <!-- ==================== RecipeIngredient (Junction) ==================== -->
+    <entity name="RecipeIngredient" representedClassName="RecipeIngredient" syncable="YES" codeGenerationType="class">
+        <attribute name="id"       optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit"     optional="YES" attributeType="String"/>
+        <!-- To-One: mỗi RecipeIngredient thuộc về 1 Ingredient -->
+        <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify"
+                      destinationEntity="Ingredient" inverseName="recipeIngredients" inverseEntity="Ingredient"/>
+        <!-- To-One: mỗi RecipeIngredient thuộc về 1 Recipe -->
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify"
+                      destinationEntity="Recipe" inverseName="recipeIngredients" inverseEntity="Recipe"/>
+    </entity>
+
+    <!-- ==================== Step ==================== -->
+    <entity name="Step" representedClassName="Step" syncable="YES" codeGenerationType="class">
+        <attribute name="id"          optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageData"   optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="instruction" optional="YES" attributeType="String"/>
+        <attribute name="orderIndex"  optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <!-- To-One: mỗi Step thuộc về 1 Recipe -->
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify"
+                      destinationEntity="Recipe" inverseName="steps" inverseEntity="Recipe"/>
+    </entity>
+
+    <!-- ==================== Tag ==================== -->
+    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="id"       optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name"     optional="YES" attributeType="String"/>
+        <!-- To-Many: một Tag gắn với nhiều Recipes (Nullify: xóa Tag → recipe.tags không có tag đó, recipe vẫn còn) -->
+        <relationship name="recipes" optional="YES" maxCount="0" deletionRule="Nullify"
+                      destinationEntity="Recipe" inverseName="tags" inverseEntity="Recipe"/>
+    </entity>
+
+</model>

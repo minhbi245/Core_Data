@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5601E8EF2F8554BC002A377F /* SnapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5601E8EE2F8554BC002A377F /* SnapSDK */; };
+		5601E8F22F8554CA002A377F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5601E8F12F8554CA002A377F /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5601E8D02F8553F0002A377F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5601E8F22F8554CA002A377F /* Kingfisher in Frameworks */,
+				5601E8EF2F8554BC002A377F /* SnapSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +132,8 @@
 			);
 			name = CoreData;
 			packageProductDependencies = (
+				5601E8EE2F8554BC002A377F /* SnapSDK */,
+				5601E8F12F8554CA002A377F /* Kingfisher */,
 			);
 			productName = CoreData;
 			productReference = 5601E8B52F8553EE002A377F /* CoreData.app */;
@@ -208,6 +217,10 @@
 			);
 			mainGroup = 5601E8AC2F8553EE002A377F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */,
+				5601E8F02F8554CA002A377F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5601E8B62F8553EE002A377F /* Products */;
 			projectDirPath = "";
@@ -593,6 +606,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Snapchat/snap-kit-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
+		5601E8F02F8554CA002A377F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5601E8EE2F8554BC002A377F /* SnapSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */;
+			productName = SnapSDK;
+		};
+		5601E8F12F8554CA002A377F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5601E8F02F8554CA002A377F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5601E8AD2F8553EE002A377F /* Project object */;
 }
