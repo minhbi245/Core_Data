@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5601E8EF2F8554BC002A377F /* SnapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5601E8EE2F8554BC002A377F /* SnapSDK */; };
+		5601E8EF2F8554BC002A377F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5601E8EE2F8554BC002A377F /* SnapKit */; };
 		5601E8F22F8554CA002A377F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5601E8F12F8554CA002A377F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5601E8F22F8554CA002A377F /* Kingfisher in Frameworks */,
-				5601E8EF2F8554BC002A377F /* SnapSDK in Frameworks */,
+				5601E8EF2F8554BC002A377F /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +132,7 @@
 			);
 			name = CoreData;
 			packageProductDependencies = (
-				5601E8EE2F8554BC002A377F /* SnapSDK */,
+				5601E8EE2F8554BC002A377F /* SnapKit */,
 				5601E8F12F8554CA002A377F /* Kingfisher */,
 			);
 			productName = CoreData;
@@ -218,7 +218,7 @@
 			mainGroup = 5601E8AC2F8553EE002A377F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */,
+				5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5601E8F02F8554CA002A377F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -606,9 +606,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */ = {
+		5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Snapchat/snap-kit-spm";
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.6.0;
@@ -625,10 +625,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5601E8EE2F8554BC002A377F /* SnapSDK */ = {
+		5601E8EE2F8554BC002A377F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "snap-kit-spm" */;
-			productName = SnapSDK;
+			package = 5601E8ED2F8554BC002A377F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		5601E8F12F8554CA002A377F /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

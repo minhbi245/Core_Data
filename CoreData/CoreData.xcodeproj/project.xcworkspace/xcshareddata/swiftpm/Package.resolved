@@ -1,5 +1,4 @@
 {
-  "originHash" : "c975a74285da861bd1b08d34ab55d61c4b121219e02dd09063ffb41de1dd6d18",
   "pins" : [
     {
       "identity" : "kingfisher",
@@ -11,12 +10,12 @@
       }
     },
     {
-      "identity" : "snap-kit-spm",
+      "identity" : "snapkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Snapchat/snap-kit-spm",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
       "state" : {
-        "revision" : "b4593a1ec3813af844806fef319ef68888611fba",
-        "version" : "2.6.0"
+        "revision" : "bc022adc43e4a7d5b2fb5c1df22bdbff64e4f90c",
+        "version" : "5.7.1"
       }
     }
   ],
