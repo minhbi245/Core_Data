@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookbook App — Wireframes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: #F3F4F6;
+    color: #1C1C1E;
+    padding: 32px 16px;
+  }
+  h1 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #6B7280; font-size: 14px; margin-bottom: 40px; }
+  .screens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .screen-label {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #374151;
+  }
+  .screen-desc {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-bottom: 12px;
+    text-align: center;
+    max-width: 300px;
+  }
+
+  /* iPhone frame */
+  .phone {
+    width: 300px;
+    height: 650px;
+    background: #FFFFFF;
+    border-radius: 36px;
+    border: 3px solid #D1D5DB;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    background: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1C1E;
+    border-bottom: 1px solid #E5E7EB;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .status-bar .time { position: absolute; left: 24px; }
+  .status-bar .icons { position: absolute; right: 24px; font-size: 11px; color: #6B7280; }
+
+  /* Nav bar */
+  .nav-bar {
+    height: 52px;
+    background: #FAFAFA;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid #E5E7EB;
+    position: sticky;
+    top: 44px;
+    z-index: 9;
+  }
+  .nav-bar .nav-title {
+    font-size: 17px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+  }
+  .nav-bar .nav-title.large {
+    text-align: left;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .nav-bar .nav-btn {
+    font-size: 13px;
+    color: #E8730E;
+    font-weight: 500;
+    cursor: default;
+    min-width: 44px;
+    text-align: center;
+  }
+  .nav-bar .nav-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background: #E8730E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* Content area */
+  .content { padding: 0; }
+
+  /* Search bar */
+  .search-bar {
+    margin: 12px 16px;
+    height: 36px;
+    background: #F3F4F6;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #9CA3AF;
+  }
+  .search-bar::before { content: "🔍"; margin-right: 8px; font-size: 13px; }
+
+  /* Filter chips */
+  .chips {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px;
+    overflow-x: hidden;
+  }
+  .chip {
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: #F3F4F6;
+    color: #6B7280;
+  }
+  .chip.active {
+    background: #E8730E;
+    color: white;
+  }
+
+  /* Section header */
+  .section-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 16px 6px;
+    background: #F9FAFB;
+  }
+
+  /* Recipe cell */
+  .recipe-cell {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid #F3F4F6;
+    gap: 12px;
+    min-height: 72px;
+  }
+  .recipe-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    background: #E5E7EB;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #9CA3AF;
+  }
+  .recipe-info { flex: 1; min-width: 0; }
+  .recipe-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .recipe-meta {
+    font-size: 12px;
+    color: #9CA3AF;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .recipe-stars { color: #F59E0B; font-size: 11px; letter-spacing: 1px; }
+  .recipe-heart {
+    font-size: 16px;
+    color: #D1D5DB;
+    flex-shrink: 0;
+  }
+  .recipe-heart.filled { color: #EF4444; }
+
+  /* Empty state */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 32px;
+    color: #9CA3AF;
+    text-align: center;
+  }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-title { font-size: 17px; font-weight: 600; color: #6B7280; margin-bottom: 4px; }
+  .empty-sub { font-size: 14px; }
+
+  /* Detail screen */
+  .hero-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: #9CA3AF;
+  }
+  .detail-header { padding: 16px; }
+  .detail-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .detail-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .badge {
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #FDEAD2;
+    color: #E8730E;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 16px;
+    border-top: 1px solid #F3F4F6;
+    border-bottom: 1px solid #F3F4F6;
+    background: #FAFAFA;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: #6B7280;
+  }
+  .stat-value { font-size: 16px; font-weight: 700; color: #1C1C1E; margin-bottom: 2px; }
+  .detail-section { padding: 16px; }
+  .detail-section-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .ingredient-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 14px;
+  }
+  .ingredient-qty { color: #E8730E; font-weight: 600; font-size: 13px; }
+  .step-row {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background: #E8730E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .fab {
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background: #E8730E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(232,115,14,0.3);
+  }
+
+  /* Form cells */
+  .form-section-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 20px 16px 6px;
+    background: #F9FAFB;
+  }
+  .form-cell {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F3F4F6;
+    background: white;
+    min-height: 44px;
+    font-size: 14px;
+  }
+  .form-label {
+    width: 90px;
+    font-size: 14px;
+    color: #6B7280;
+    flex-shrink: 0;
+  }
+  .form-value {
+    flex: 1;
+    color: #1C1C1E;
+    font-size: 14px;
+  }
+  .form-placeholder { color: #D1D5DB; }
+  .form-chevron { color: #D1D5DB; font-size: 12px; margin-left: 4px; }
+  .image-picker {
+    width: 100%;
+    height: 140px;
+    background: #F3F4F6;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF;
+    font-size: 14px;
+    gap: 8px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .image-picker-icon { font-size: 32px; }
+  .add-row-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #E8730E;
+    font-weight: 500;
+    border-bottom: 1px solid #F3F4F6;
+    background: white;
+  }
+
+  /* Category cell */
+  .cat-cell {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F3F4F6;
+    gap: 12px;
+    min-height: 48px;
+  }
+  .cat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #FDEAD2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .cat-name { flex: 1; font-size: 15px; font-weight: 500; }
+  .cat-count { font-size: 13px; color: #9CA3AF; margin-right: 4px; }
+  .cat-chevron { color: #D1D5DB; font-size: 12px; }
+
+  /* Annotations */
+  .annotation {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 600;
+    color: #7C3AED;
+    background: #EDE9FE;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .annotation::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 1px;
+    background: #7C3AED;
+  }
+
+  /* Annotation lines */
+  .note {
+    margin-top: 12px;
+    background: #EDE9FE;
+    border-left: 3px solid #7C3AED;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: #5B21B6;
+    line-height: 1.5;
+    border-radius: 0 6px 6px 0;
+    max-width: 300px;
+  }
+  .note strong { font-weight: 700; }
+
+  /* Legend */
+  .legend {
+    max-width: 1600px;
+    margin: 48px auto 0;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+  }
+  .legend h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .legend-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 1px solid #E5E7EB;
+  }
+</style>
+</head>
+<body>
+
+<h1>Cookbook App — Wireframes</h1>
+<p class="subtitle">iOS UIKit + SnapKit | MVVM + Clean Architecture | Core Data Learning Project</p>
+
+<div class="screens">
+
+  <!-- ==================== SCREEN 1: Recipe List ==================== -->
+  <div class="screen-wrapper">
+    <div class="screen-label">1. Recipe List (Home)</div>
+    <div class="screen-desc">Main screen with search, filter chips, and grouped table view</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <span class="icons">⚡ 📶</span>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-title large">Cookbook</div>
+          <div class="nav-icon">+</div>
+        </div>
+        <div class="search-bar">Search recipes...</div>
+        <div class="chips">
+          <div class="chip active">All</div>
+          <div class="chip">Favorites</div>
+          <div class="chip">Main</div>
+          <div class="chip">Dessert</div>
+          <div class="chip">Soup</div>
+        </div>
+
+        <div class="section-header">Main Course</div>
+        <div class="recipe-cell">
+          <div class="recipe-thumb">🍝</div>
+          <div class="recipe-info">
+            <div class="recipe-name">Spaghetti Bolognese</div>
+            <div class="recipe-meta">
+              <span>⏱ 45 min</span>
+              <span>👤 4</span>
+              <span class="recipe-stars">★★★★☆</span>
+            </div>
+          </div>
+          <div class="recipe-heart filled">♥</div>
+        </div>
+        <div class="recipe-cell">
+          <div class="recipe-thumb">🍗</div>
+          <div class="recipe-info">
+            <div class="recipe-name">Grilled Chicken</div>
+            <div class="recipe-meta">
+              <span>⏱ 30 min</span>
+              <span>👤 2</span>
+              <span class="recipe-stars">★★★☆☆</span>
+            </div>
+          </div>
+          <div class="recipe-heart">♡</div>
+        </div>
+        <div class="recipe-cell">
+          <div class="recipe-thumb">🥩</div>
+          <div class="recipe-info">
+            <div class="recipe-name">Beef Stew</div>
+            <div class="recipe-meta">
+              <span>⏱ 90 min</span>
+              <span>👤 6</span>
+              <span class="recipe-stars">★★★★★</span>
+            </div>
+          </div>
+          <div class="recipe-heart filled">♥</div>
+        </div>
+
+        <div class="section-header">Desserts</div>
+        <div class="recipe-cell">
+          <div class="recipe-thumb">🍰</div>
+          <div class="recipe-info">
+            <div class="recipe-name">Chocolate Cake</div>
+            <div class="recipe-meta">
+              <span>⏱ 60 min</span>
+              <span>👤 8</span>
+              <span class="recipe-stars">★★★★☆</span>
+            </div>
+          </div>
+          <div class="recipe-heart">♡</div>
+        </div>
+        <div class="recipe-cell">
+          <div class="recipe-thumb">🍮</div>
+          <div class="recipe-info">
+            <div class="recipe-name">Crème Brûlée</div>
+            <div class="recipe-meta">
+              <span>⏱ 40 min</span>
+              <span>👤 4</span>
+              <span class="recipe-stars">★★★★★</span>
+            </div>
+          </div>
+          <div class="recipe-heart">♡</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Key points:</strong><br>
+      • UISearchController in nav bar<br>
+      • Horizontal UICollectionView for filter chips<br>
+      • UITableView grouped by Category sections<br>
+      • 56×56pt thumbnail, 8pt corner radius<br>
+      • Swipe left on cell → delete action<br>
+      • Pull to refresh (optional)
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 2: Recipe Detail ==================== -->
+  <div class="screen-wrapper">
+    <div class="screen-label">2. Recipe Detail</div>
+    <div class="screen-desc">Full recipe view with hero image, stats, ingredients, and steps</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <span class="icons">⚡ 📶</span>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-btn">‹ Back</div>
+          <div class="nav-title">Detail</div>
+          <div class="nav-btn" style="display:flex;gap:12px;justify-content:flex-end;">
+            <span>↗</span>
+            <span style="color:#DC2626;">🗑</span>
+          </div>
+        </div>
+        <div class="hero-image">📷</div>
+        <div class="detail-header">
+          <div class="detail-title">Spaghetti Bolognese</div>
+          <div class="detail-badges">
+            <div class="badge">Main Course</div>
+            <span class="recipe-stars" style="font-size:14px;">★★★★☆</span>
+            <span style="font-size:13px;color:#6B7280;">4.0</span>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-value">15m</div>
+            Prep
+          </div>
+          <div class="stat">
+            <div class="stat-value">45m</div>
+            Cook
+          </div>
+          <div class="stat">
+            <div class="stat-value">4</div>
+            Servings
+          </div>
+        </div>
+        <div class="chips" style="padding-top:12px;">
+          <div class="chip">Italian</div>
+          <div class="chip">Pasta</div>
+          <div class="chip">Quick</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">Ingredients</div>
+          <div class="ingredient-row">
+            <span>Spaghetti</span>
+            <span class="ingredient-qty">400g</span>
+          </div>
+          <div class="ingredient-row">
+            <span>Ground beef</span>
+            <span class="ingredient-qty">500g</span>
+          </div>
+          <div class="ingredient-row">
+            <span>Tomato sauce</span>
+            <span class="ingredient-qty">2 cups</span>
+          </div>
+          <div class="ingredient-row">
+            <span>Onion, diced</span>
+            <span class="ingredient-qty">1 large</span>
+          </div>
+        </div>
+        <div class="detail-section" style="padding-top:0;">
+          <div class="detail-section-title">Steps</div>
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div>Boil water and cook spaghetti until al dente.</div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div>Brown the ground beef in a large skillet.</div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div>Add onion and cook until soft. Pour in tomato sauce.</div>
+          </div>
+        </div>
+        <div class="fab">✎</div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Key points:</strong><br>
+      • Hero image: 200–250pt, scaleAspectFill<br>
+      • Nav bar turns opaque on scroll<br>
+      • Stats row: 3-column even layout<br>
+      • Tags as horizontal chip scroll<br>
+      • FAB: 50pt circle, bottom-right, shadow<br>
+      • Share + Delete in nav bar right
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 3: Create/Edit Recipe ==================== -->
+  <div class="screen-wrapper">
+    <div class="screen-label">3. Create / Edit Recipe</div>
+    <div class="screen-desc">Form layout using inset grouped table view style</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <span class="icons">⚡ 📶</span>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-btn">Cancel</div>
+          <div class="nav-title">New Recipe</div>
+          <div class="nav-btn" style="font-weight:700;">Save</div>
+        </div>
+
+        <div class="image-picker">
+          <div class="image-picker-icon">📷</div>
+          Tap to add photo
+        </div>
+
+        <div class="form-section-label">Basic Info</div>
+        <div class="form-cell">
+          <div class="form-label">Name</div>
+          <div class="form-value form-placeholder">Recipe name...</div>
+        </div>
+        <div class="form-cell">
+          <div class="form-label">Category</div>
+          <div class="form-value form-placeholder">Select category</div>
+          <div class="form-chevron">›</div>
+        </div>
+        <div class="form-cell">
+          <div class="form-label">Rating</div>
+          <div class="form-value"><span style="color:#F59E0B;letter-spacing:2px;">★ ★ ★ ☆ ☆</span></div>
+        </div>
+
+        <div class="form-section-label">Time & Servings</div>
+        <div class="form-cell">
+          <div class="form-label">Prep time</div>
+          <div class="form-value">15 min</div>
+          <div class="form-chevron">›</div>
+        </div>
+        <div class="form-cell">
+          <div class="form-label">Cook time</div>
+          <div class="form-value">45 min</div>
+          <div class="form-chevron">›</div>
+        </div>
+        <div class="form-cell">
+          <div class="form-label">Servings</div>
+          <div class="form-value" style="display:flex;align-items:center;gap:12px;justify-content:flex-end;">
+            <span style="color:#E8730E;font-size:18px;font-weight:700;">−</span>
+            <span style="font-weight:600;">4</span>
+            <span style="color:#E8730E;font-size:18px;font-weight:700;">+</span>
+          </div>
+        </div>
+
+        <div class="form-section-label">Tags</div>
+        <div style="padding:10px 16px;background:white;border-bottom:1px solid #F3F4F6;">
+          <div class="chips" style="padding:0;flex-wrap:wrap;">
+            <div class="chip active">Italian</div>
+            <div class="chip active">Pasta</div>
+            <div class="chip">Quick</div>
+            <div class="chip">Healthy</div>
+            <div class="chip">Spicy</div>
+          </div>
+        </div>
+
+        <div class="form-section-label">Ingredients</div>
+        <div class="form-cell">
+          <div style="flex:1;font-size:14px;">Spaghetti</div>
+          <div style="color:#6B7280;font-size:13px;">400g</div>
+        </div>
+        <div class="form-cell">
+          <div style="flex:1;font-size:14px;">Ground beef</div>
+          <div style="color:#6B7280;font-size:13px;">500g</div>
+        </div>
+        <div class="add-row-btn">+ Add Ingredient</div>
+
+        <div class="form-section-label">Steps</div>
+        <div class="form-cell">
+          <div style="color:#E8730E;font-weight:600;margin-right:8px;">1.</div>
+          <div style="flex:1;font-size:14px;">Boil water and cook spaghetti...</div>
+          <div style="color:#D1D5DB;">☰</div>
+        </div>
+        <div class="form-cell">
+          <div style="color:#E8730E;font-weight:600;margin-right:8px;">2.</div>
+          <div style="flex:1;font-size:14px;">Brown the ground beef...</div>
+          <div style="color:#D1D5DB;">☰</div>
+        </div>
+        <div class="add-row-btn">+ Add Step</div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Key points:</strong><br>
+      • UITableView insetGrouped style<br>
+      • Image picker: UIImagePickerController<br>
+      • Category: UIMenu / action sheet<br>
+      • Stepper for servings (UIStepper)<br>
+      • Dynamic rows: insert/delete for ingredients & steps<br>
+      • Reorder handle (☰) for steps<br>
+      • Cancel = dismiss, Save = validate + persist
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 4: Category Management ==================== -->
+  <div class="screen-wrapper">
+    <div class="screen-label">4. Category Management</div>
+    <div class="screen-desc">Simple list with add, edit, and swipe-to-delete</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <span class="icons">⚡ 📶</span>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-btn">‹ Back</div>
+          <div class="nav-title large" style="font-size:22px;">Categories</div>
+          <div class="nav-icon">+</div>
+        </div>
+
+        <div style="height:12px;background:#F9FAFB;"></div>
+
+        <div class="cat-cell">
+          <div class="cat-icon">🍽</div>
+          <div class="cat-name">Main Course</div>
+          <div class="cat-count">5 recipes</div>
+          <div class="cat-chevron">›</div>
+        </div>
+        <div class="cat-cell">
+          <div class="cat-icon">🍰</div>
+          <div class="cat-name">Desserts</div>
+          <div class="cat-count">3 recipes</div>
+          <div class="cat-chevron">›</div>
+        </div>
+        <div class="cat-cell">
+          <div class="cat-icon">🥗</div>
+          <div class="cat-name">Salads</div>
+          <div class="cat-count">2 recipes</div>
+          <div class="cat-chevron">›</div>
+        </div>
+        <div class="cat-cell">
+          <div class="cat-icon">🍜</div>
+          <div class="cat-name">Soups</div>
+          <div class="cat-count">4 recipes</div>
+          <div class="cat-chevron">›</div>
+        </div>
+        <div class="cat-cell">
+          <div class="cat-icon">🥤</div>
+          <div class="cat-name">Beverages</div>
+          <div class="cat-count">1 recipe</div>
+          <div class="cat-chevron">›</div>
+        </div>
+        <div class="cat-cell">
+          <div class="cat-icon">🍞</div>
+          <div class="cat-name">Baking</div>
+          <div class="cat-count">2 recipes</div>
+          <div class="cat-chevron">›</div>
+        </div>
+
+        <!-- Swipe demo -->
+        <div style="margin:20px 16px;border-radius:8px;overflow:hidden;border:1px dashed #7C3AED;">
+          <div style="font-size:10px;color:#7C3AED;padding:4px 8px;background:#EDE9FE;font-weight:600;">
+            SWIPE LEFT ACTIONS
+          </div>
+          <div style="display:flex;height:48px;">
+            <div style="flex:1;background:white;display:flex;align-items:center;padding:0 12px;font-size:13px;">
+              <span style="margin-right:8px;">🍜</span> Soups
+            </div>
+            <div style="width:60px;background:#3B82F6;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">Edit</div>
+            <div style="width:60px;background:#DC2626;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">Delete</div>
+          </div>
+        </div>
+
+        <!-- Empty state example -->
+        <div style="margin:16px;border-radius:8px;border:1px dashed #7C3AED;padding:0;overflow:hidden;">
+          <div style="font-size:10px;color:#7C3AED;padding:4px 8px;background:#EDE9FE;font-weight:600;">
+            EMPTY STATE (when no categories)
+          </div>
+          <div class="empty-state" style="padding:24px;">
+            <div class="empty-icon">📁</div>
+            <div class="empty-title">No categories yet</div>
+            <div class="empty-sub">Tap + to create one</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Key points:</strong><br>
+      • Simple UITableView, plain style<br>
+      • Swipe left: Edit (blue) + Delete (red)<br>
+      • Tap row → edit category name/icon<br>
+      • "+" → alert with text field for new category<br>
+      • Recipe count as right detail label<br>
+      • Prevent delete if category has recipes (or confirm)
+    </div>
+  </div>
+
+</div>
+
+<!-- Color & Token Legend -->
+<div class="legend">
+  <h2>Design Tokens Reference</h2>
+  <div class="legend-grid">
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#E8730E;"></div>
+      <div><strong>Primary</strong> — #E8730E<br>Buttons, accents, tint color</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#FDEAD2;"></div>
+      <div><strong>Primary Light</strong> — #FDEAD2<br>Chip bg, badge bg, highlights</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#FFF9F2;"></div>
+      <div><strong>Background</strong> — #FFF9F2<br>Main screen background</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#FFFFFF;"></div>
+      <div><strong>Surface</strong> — #FFFFFF<br>Cards, cells, inputs</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#1C1C1E;"></div>
+      <div><strong>Text Primary</strong> — #1C1C1E<br>Headlines, body text</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#6B7280;"></div>
+      <div><strong>Text Secondary</strong> — #6B7280<br>Captions, metadata</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#F59E0B;"></div>
+      <div><strong>Star</strong> — #F59E0B<br>Rating stars</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#EF4444;"></div>
+      <div><strong>Favorite / Destructive</strong> — #EF4444<br>Heart icon, delete actions</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px;">Typography Scale (SF Pro)</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:12px;">
+    <div style="font-size:28px;font-weight:700;">Large Title 28pt</div>
+    <div style="font-size:22px;font-weight:700;">Title2 22pt Bold</div>
+    <div style="font-size:17px;font-weight:600;">Headline 17pt Semi</div>
+    <div style="font-size:17px;">Body 17pt Regular</div>
+    <div style="font-size:15px;color:#6B7280;">Subheadline 15pt</div>
+    <div style="font-size:12px;color:#9CA3AF;">Caption 12pt</div>
+  </div>
+
+  <h2 style="margin-top:24px;">Spacing</h2>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;align-items:flex-end;">
+    <div style="text-align:center;">
+      <div style="width:4px;height:4px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">xs 4pt</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:8px;height:8px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">sm 8pt</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:12px;height:12px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">md 12pt</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:16px;height:16px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">lg 16pt</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:24px;height:24px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">xl 24pt</span>
+    </div>
+    <div style="text-align:center;">
+      <div style="width:32px;height:32px;background:#E8730E;margin:0 auto 4px;"></div>
+      <span style="font-size:11px;">xxl 32pt</span>
+    </div>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:32px;font-size:12px;color:#9CA3AF;">
+  Cookbook App Wireframes — Core Data Learning Project — UIKit + SnapKit — April 2026
+</p>
+
+</body>
+</html>

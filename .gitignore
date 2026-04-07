@@ -1,0 +1,54 @@
+# Override global gitignore — commit docs and plans for this learning project
+!docs/
+!plans/
+!README.md
+
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.xcuserstate
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Swift Package Manager
+.build/
+.swiftpm/
+*.resolved
+
+# CocoaPods (not used, but just in case)
+Pods/
+Podfile.lock
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Core Data (SQLite files are generated, not committed)
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Secrets & env
+.env
+*.pem
+*.p12
+*.mobileprovision
+
+# Test coverage
+*.gcno
+*.gcda
+coverage/
